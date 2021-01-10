@@ -1,1 +1,3 @@
 # FirewallUserLand em Delphi
+
+Esse firewall funciona fazendo hook (detour-hook) da api do windows, para fazer isso ele necessita ter acesso a memória da aplicação, então é necessário injeta-lo no processo utilizando o método do windows (CreateRemoteThread) e forçar que nossa biblioteca seja aberta com o LoadLibrary pela aplicação, nesse momento a biblioteca criara uma thread (CreateThread) que espera pela carregamento da biblioteca (WS2_32.DLL), quando isso acontecer ela chama a função (DetourHook) que altera o fluxo da aplicação, dessa forma o aplicativo chamará a função da nossa dll e não da API do windows, e a função nova chamara a função do windows só quando a resposta da caixa de dialogo de conexão for verdadeira.
